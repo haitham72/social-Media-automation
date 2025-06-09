@@ -427,7 +427,7 @@ def send_to_webhook(description, image_ref=None, is_image_request=False): # Chan
                     "type": "video_creation_request", # Changed type for clarity
                     "timestamp": datetime.now().isoformat()
                 }
-                # st.info(f"Sending video creation request: {message}")
+                st.info(f"Sending video creation request: {message}")
 
             response = requests.post(webhook_url, json=payload)
             if response.status_code == 200:

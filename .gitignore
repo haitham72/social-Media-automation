@@ -1,0 +1,12 @@
+# Ignore Python virtual environments and libraries
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.sqlite3
+*.egg-info/
+*.env
+venv/
+env/
+automation/

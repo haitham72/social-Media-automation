@@ -475,7 +475,7 @@ def image_gallery():
         image_url = next((str(row[col]).strip() for col in possible_url_columns if col in row and str(row[col]).strip() and str(row[col]) != 'N/A'), None)
         
         # Get the 'FreePic' value
-        freepic_value = clean_text_for_display(row.get('URL', '')) # Safely get FreePic
+        freepic_value = str(row.get('URL', '')) # Safely get FreePic
 
         if image_url:
             image_data_list.append({

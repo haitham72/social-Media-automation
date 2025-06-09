@@ -32,9 +32,9 @@ for message in st.session_state.messages:
             st.markdown(message["content"])
 
 # Display persistent debug info in an expandable box
-if st.session_state.debug_info:
-    with st.expander("🛠️ Debug Info (Webhook Response)"):
-        st.markdown(st.session_state.debug_info)
+# if st.session_state.debug_info:
+#     with st.expander("🛠️ Debug Info (Webhook Response)"):
+#         st.markdown(st.session_state.debug_info)
 
 # Chat input box for user prompt
 prompt = st.chat_input("What would you like to create?")
@@ -103,4 +103,3 @@ if prompt:
 
         # Refresh app to show AI response
         st.rerun()
-

@@ -10,6 +10,7 @@ st.set_page_config(
     layout="centered",
     initial_sidebar_state="expanded"
 )
+
 st.image("icons/banner.gif", use_container_width=True)
 
 image_paths = [
@@ -28,8 +29,6 @@ for i, image_path in enumerate(image_paths):
 
 st.markdown("---")
 
-
-
 webhook_url = st.secrets.get("N8N_WEBHOOK_URL", "")
 ELEVEN_LABS_API_KEY = st.secrets.get("ELEVEN_LABS_API_KEY", "")
 
@@ -37,12 +36,15 @@ eleven_labs_widget_html = f"""
 <elevenlabs-convai agent-id= {ELEVEN_LABS_API_KEY} ></elevenlabs-convai>
 <script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
 """
+
 st.markdown('<div class="main-header"><h1>Hello, How can I help you?</h1></div>', unsafe_allow_html=True)
 components.html(eleven_labs_widget_html, height=330) # Adjust height as needed
+
 if "messages" not in st.session_state:
     st.session_state.messages = []
 if "debug_info" not in st.session_state:
     st.session_state.debug_info = ""
+
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         if "image_url" in message:
@@ -99,16 +101,22 @@ if prompt:
                 else:
                     ai_response_text = "No response from AI."
                     st.session_state.messages.append({"role": "assistant", "content": ai_response_text})
+                
+                # ADD THIS LINE - Force Streamlit to rerun and show the response
+                st.rerun()
+                
             else:
                 st.error(f"Webhook returned status {response.status_code}")
                 st.session_state.messages.append({
                     "role": "assistant",
                     "content": f"Error: Webhook returned status {response.status_code}"
                 })
+                st.rerun()  # Also rerun for error cases
+                
         except Exception as e:
             st.error(f"Failed to send message: {str(e)}")
             st.session_state.messages.append({
                 "role": "assistant",
                 "content": f"Error: Failed to send message: {str(e)}"
             })
-            st.rerun()
+            st.rerun()  # This was already there, which is good

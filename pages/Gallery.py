@@ -493,12 +493,12 @@ def image_gallery():
     with st.spinner(f'Loading {len(image_data_list)} images...'):
         image_results = load_images_batch(image_data_list)
 
-    cols = st.columns(4)
+    cols = st.columns(5)
     images_displayed = 0
 
     for i, data in enumerate(image_data_list):
         idx = data['idx']
-        col = cols[i % 4]
+        col = cols[i % 5]
 
         with col:
             if idx in image_results and image_results[idx]['success']:

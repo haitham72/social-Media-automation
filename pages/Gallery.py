@@ -485,7 +485,7 @@ def image_gallery():
         image_results = load_images_batch(image_data_list)
 
 
-    num_cols_display = 5
+    num_cols_display = 4
 
     cols = st.columns(num_cols_display)
     images_displayed = 0
@@ -568,23 +568,19 @@ def video_gallery():
             video_path = download_video(file_id)
             if video_path:
                 with cols[idx % selected_cols]:
-                    # st.markdown(f"<div class='video-container'>", unsafe_allow_html=True)
-                    st.markdown(f"### {name}")
-                    st.markdown(description)
+                    st.markdown(f"###### {name}")
+                    # st.markdown(description)
                     st.video(video_path)
-                    st.markdown("</div>", unsafe_allow_html=True)
             else:
                 st.warning(f"⚠️ Couldn't download video for ID: {file_id}")
         else:
             with cols[idx % selected_cols]:
-                # st.markdown(f"<div class='video-container'>", unsafe_allow_html=True)
-                st.markdown(f"## {name}")
-                st.markdown(description)
+                st.markdown(f"###### {name}")
+                # st.markdown(description)
                 try:
                     st.video(url)
                 except:
                     st.error("Invalid video URL")
-                st.markdown("</div>", unsafe_allow_html=True)
 
 
 def main():

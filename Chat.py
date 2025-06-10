@@ -4,6 +4,12 @@ from datetime import datetime
 import re  # Import the regular expression module
 import streamlit.components.v1 as components # Import components
 
+st.set_page_config(
+    page_title="AI assisstant",
+    page_icon="🤖",
+    layout="centered",
+    initial_sidebar_state="expanded"
+)
 st.image("icons/banner.gif", use_container_width=True)
 
 image_paths = [

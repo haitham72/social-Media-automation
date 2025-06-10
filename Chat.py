@@ -67,8 +67,8 @@ if prompt:
                 if isinstance(data, list) and len(data) > 0 and "output" in data[0]:
                     ai_response_text = data[0]["output"]
 
-                    # Improved regex to catch URLs with or without quotes
-                    url_pattern = re.compile(r'url:\s*["\']?(https?:\/\/[^\s"\']+)["\']?', re.IGNORECASE)
+                    # Updated regex to catch URLs inside square brackets
+                    url_pattern = re.compile(r'\[(https?:\/\/[^\s\]]+)\]', re.IGNORECASE)
                     match = url_pattern.search(ai_response_text)
 
                     if match:
@@ -100,6 +100,5 @@ if prompt:
                 "content": f"Error: Failed to send message: {str(e)}"
             })
         
-
         # Refresh app to show AI response
         st.rerun()

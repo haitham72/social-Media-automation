@@ -12,14 +12,15 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 import base64
 from urllib.parse import urlparse
 
+
 # Configure page
 st.set_page_config(
     page_title="AI Gallery",
     page_icon="🖼️",
-    layout="wide",
-    initial_sidebar_state="collapsed"
+    layout="centered",
+    initial_sidebar_state="expanded"
 )
-
+st.image("icons/banner_video.gif", use_container_width=True)
 # Initialize theme in session state
 if 'theme' not in st.session_state:
     st.session_state.theme = 'light'
@@ -191,7 +192,7 @@ def get_theme_css():
             .image-container {
                 position: relative;
                 width: 100%;
-                height: 350px;
+                height: 250px;
                 overflow: hidden;
             }
             .image-overlay {
@@ -256,14 +257,6 @@ def get_theme_css():
 
 # Apply theme CSS
 st.markdown(get_theme_css(), unsafe_allow_html=True)
-
-# Theme toggle button
-theme_icon = "🌙" if st.session_state.theme == 'light' else "☀️"
-
-# Hidden button for theme toggle functionality
-if st.button(theme_icon, key="theme_toggle", help="Toggle theme"):
-    toggle_theme()
-    st.rerun()
 
 # Constants for video handling
 CACHE_DIR = "cached_videos"
@@ -440,8 +433,7 @@ def send_to_webhook(description, image_ref=None, is_image_request=False): # Chan
 
 
 def image_gallery():
-    # --- Generate New Image Section (Moved to Top) ---
-    st.subheader("Generate New Image")
+    # st.subheader("Generate New Image")
     prompt = st.text_input("Enter your image prompt:", key="new_image_prompt")
     if st.button("Generate Image", key="generate_image_button"):
         if prompt:
@@ -450,7 +442,7 @@ def image_gallery():
             st.rerun() # Rerun to clear the input field and show success message
         else:
             st.warning("Please enter a prompt to generate an image.")
-    st.markdown("---") # Separator
+    # st.markdown("---") # Separator
 
 
     images_url = st.secrets.get("IMAGES_GOOGLE_SHEET_URL", "")

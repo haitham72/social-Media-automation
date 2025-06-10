@@ -4,7 +4,25 @@ from datetime import datetime
 import re  # Import the regular expression module
 import streamlit.components.v1 as components # Import components
 
-# Eleven Labs widget HTML and JavaScript
+st.image("icons/banner.gif", use_container_width=True)
+
+image_paths = [
+    "icons/baby.jpg",
+    "icons/batman.gif",
+    "icons/assisstant.gif",
+    "icons/Deep_research.gif",
+]
+
+columns_dynamic = st.columns(len(image_paths))
+
+for i, image_path in enumerate(image_paths):
+    with columns_dynamic[i]:
+        filename_without_ext = image_path.split("/")[-1].split(".")[0]
+        st.image(image_path, use_container_width=True, width=250)
+
+st.markdown("---")
+
+
 
 webhook_url = st.secrets.get("N8N_WEBHOOK_URL", "")
 ELEVEN_LABS_API_KEY = st.secrets.get("ELEVEN_LABS_API_KEY", "")
@@ -14,15 +32,11 @@ eleven_labs_widget_html = f"""
 <script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
 """
 st.markdown('<div class="main-header"><h1>Hello, How can I help you?</h1></div>', unsafe_allow_html=True)
-components.html(eleven_labs_widget_html, height=550) # Adjust height as needed
-
-# Initialize session state variables if they don't exist
+components.html(eleven_labs_widget_html, height=330) # Adjust height as needed
 if "messages" not in st.session_state:
     st.session_state.messages = []
 if "debug_info" not in st.session_state:
     st.session_state.debug_info = ""
-
-# Display all previous chat messages with proper alignment
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         if "image_url" in message:
@@ -31,18 +45,10 @@ for message in st.session_state.messages:
         else:
             st.markdown(message["content"])
 
-# Display persistent debug info in an expandable box
-# if st.session_state.debug_info:
-#     with st.expander("🛠️ Debug Info (Webhook Response)"):
-#         st.markdown(st.session_state.debug_info)
-
-# Chat input box for user prompt
 prompt = st.chat_input("What would you like to create?")
 if prompt:
-    # Append user message to session state
     st.session_state.messages.append({"role": "user", "content": prompt})
 
-    # Immediately display user message
     with st.chat_message("user"):
         st.markdown(prompt)
 
@@ -99,6 +105,4 @@ if prompt:
                 "role": "assistant",
                 "content": f"Error: Failed to send message: {str(e)}"
             })
-        
-        # Refresh app to show AI response
-        st.rerun()
+            st.rerun()

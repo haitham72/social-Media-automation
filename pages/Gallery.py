@@ -29,7 +29,6 @@ def toggle_theme():
     st.session_state.theme = 'light' if st.session_state.theme == 'dark' else 'dark'
 
 # Dynamic CSS based on theme
-# Dynamic CSS based on theme
 def get_theme_css():
     if st.session_state.theme == 'dark':
         return """
@@ -40,7 +39,7 @@ def get_theme_css():
                 border-radius: 10px;
                 margin-bottom: 2rem;
                 color: white;
-                text-align: center; /* Center header text */
+                text-align: center;
             }
             .theme-toggle {
                 position: fixed;
@@ -133,10 +132,10 @@ def get_theme_css():
                 color: white;
             }
 
-            /* CSS for the "Enter your image prompt" input box in dark theme */
+            /* Corrected CSS for the "Enter your image prompt" input box in dark theme */
             .stTextInput > div > div > input[type="text"] {
                 background-color: #28283a; /* Darker background */
-                color: #ffffff; /* White text */
+                color: #ffffff !important; /* White text for visibility - ADDED !important */
                 border: 1px solid #667eea; /* Border color */
                 border-radius: 8px;
                 padding: 0.75rem 1rem;
@@ -147,7 +146,7 @@ def get_theme_css():
             }
         </style>
         """
-    else:
+    else: # Light theme
         return """
         <style>
             .main-header {
@@ -156,7 +155,7 @@ def get_theme_css():
                 border-radius: 10px;
                 margin-bottom: 2rem;
                 color: white;
-                text-align: center; /* Center header text */
+                text-align: center;
             }
             .theme-toggle {
                 position: fixed;
@@ -240,7 +239,7 @@ def get_theme_css():
                 color: white;
             }
 
-            /* CSS for the "Enter your image prompt" input box in light theme */
+            /* Corrected CSS for the "Enter your image prompt" input box in light theme */
             .stTextInput > div > div > input[type="text"] {
                 background-color: #f0f2f6; /* Light background */
                 color: #333333; /* Dark text */
@@ -427,7 +426,7 @@ def send_to_webhook(description, image_ref=None, is_image_request=False): # Chan
                     "type": "video_creation_request", # Changed type for clarity
                     "timestamp": datetime.now().isoformat()
                 }
-                st.info(f"Sending video creation request: {message}")
+                # st.info(f"Sending video creation request: {message}")
 
             response = requests.post(webhook_url, json=payload)
             if response.status_code == 200:
@@ -493,12 +492,15 @@ def image_gallery():
     with st.spinner(f'Loading {len(image_data_list)} images...'):
         image_results = load_images_batch(image_data_list)
 
-    cols = st.columns(5)
+
+    num_cols_display = 5
+
+    cols = st.columns(num_cols_display)
     images_displayed = 0
 
     for i, data in enumerate(image_data_list):
         idx = data['idx']
-        col = cols[i % 5]
+        col = cols[i % num_cols_display]
 
         with col:
             if idx in image_results and image_results[idx]['success']:
@@ -542,7 +544,8 @@ def video_gallery():
         st.error("❌ No VIDEOS_GOOGLE_SHEET_URL found in secrets")
         return
 
-    selected_cols=4
+    # Using 4 columns for video gallery
+    selected_cols = 4 
 
     with st.spinner('Loading video gallery...'):
         df = safe_load_csv(videos_url)

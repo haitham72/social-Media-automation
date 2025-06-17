@@ -1,7 +1,7 @@
 import streamlit as st
 import requests
 from datetime import datetime
-import re  # Import the regular expression module
+import re 
 import streamlit.components.v1 as components # Import components
 
 st.set_page_config(
@@ -26,8 +26,6 @@ for i, image_path in enumerate(image_paths):
     with columns_dynamic[i]:
         filename_without_ext = image_path.split("/")[-1].split(".")[0]
         st.image(image_path, use_container_width=True, width=250)
-
-st.markdown("---")
 
 webhook_url = st.secrets.get("N8N_WEBHOOK_URL", "")
 ELEVEN_LABS_API_KEY = st.secrets.get("ELEVEN_LABS_API_KEY", "")

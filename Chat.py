@@ -19,7 +19,7 @@ image_paths = [
     "icons/assisstant.gif",
     "icons/Deep_research.gif",
 ]
-
+# comment
 columns_dynamic = st.columns(len(image_paths))
 
 for i, image_path in enumerate(image_paths):

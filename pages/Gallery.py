@@ -11,6 +11,7 @@ import os
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import base64
 from urllib.parse import urlparse
+import gdown
 
 
 # Configure page
@@ -568,14 +569,14 @@ def video_gallery():
             video_path = download_video(file_id)
             if video_path:
                 with cols[idx % selected_cols]:
-                    st.markdown(f"###### {name}")
+                    st.markdown(f'<h6 style="color:#000000;">{name}</h6>', unsafe_allow_html=True)
                     # st.markdown(description)
                     st.video(video_path)
             else:
                 st.warning(f"⚠️ Couldn't download video for ID: {file_id}")
         else:
             with cols[idx % selected_cols]:
-                st.markdown(f"###### {name}")
+                st.markdown(f'<h6 style="color:#000000;">{name}</h6>', unsafe_allow_html=True)
                 # st.markdown(description)
                 try:
                     st.video(url)

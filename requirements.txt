@@ -1,5 +1,8 @@
 streamlit
 plotly
-gdown
-google-generativeai
 watchdog
+google-generativeai
+requests
+pydantic
+gdown
+python-dotenv

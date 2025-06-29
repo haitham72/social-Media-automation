@@ -2,3 +2,4 @@ streamlit
 plotly
 gdown
 google-generativeai
+watchdog

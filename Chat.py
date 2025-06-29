@@ -56,7 +56,7 @@ for i, image_path in enumerate(image_paths):
 # Get API keys and webhook URL from secrets
 webhook_url = st.secrets.get("N8N_WEBHOOK_URL", "")
 ELEVEN_LABS_API_KEY = st.secrets.get("ELEVEN_LABS_API_KEY", "")
-GEMINI_API_KEY = st.secrets.get("GEMINI_API_KEY", "")
+GEMINI_API_KEY = st.secrets.get("AIzaSyBe0r45CcxVSjedLuPEaupGwR4yQunEl5c")
 
 # Configure Gemini
 if GEMINI_API_KEY:

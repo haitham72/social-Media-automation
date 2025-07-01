@@ -8,7 +8,7 @@ import json
 import os
 from PIL import Image
 import hashlib
-
+# hi
 def download_and_display_drive_image(file_id, caption="Generated Image"):
     download_url = f"https://drive.google.com/uc?id={file_id}&export=download"
     image_path = f"/tmp/{file_id}.jpg"

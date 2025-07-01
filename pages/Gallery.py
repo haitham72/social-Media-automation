@@ -13,7 +13,8 @@ import base64
 from urllib.parse import urlparse
 import gdown
 
-
+IMAGES_GOOGLE_SHEET_URL = "https://docs.google.com/spreadsheets/d/189Rwsit3PMBCyQZeQevGhDxZbENh8I779wyhNMZF-T0/edit?usp=sharing"
+VIDEOS_GOOGLE_SHEET_URL = "https://docs.google.com/spreadsheets/d/1ekqSLg1xRWDxHwfZQyiOGfjSYQfGoYoGCVaUQHnNOOs/edit?usp=sharing"
 # Configure page
 st.set_page_config(
     page_title="AI Gallery",
@@ -446,7 +447,7 @@ def image_gallery():
     # st.markdown("---") # Separator
 
 
-    images_url = st.secrets.get("IMAGES_GOOGLE_SHEET_URL", "")
+    images_url = IMAGES_GOOGLE_SHEET_URL
     if not images_url:
         st.error("❌ No IMAGES_GOOGLE_SHEET_URL found in secrets")
         return
@@ -532,7 +533,7 @@ def image_gallery():
 
 
 def video_gallery():
-    videos_url = st.secrets.get("VIDEOS_GOOGLE_SHEET_URL", "")
+    videos_url = VIDEOS_GOOGLE_SHEET_URL
     if not videos_url:
         st.error("❌ No VIDEOS_GOOGLE_SHEET_URL found in secrets")
         return

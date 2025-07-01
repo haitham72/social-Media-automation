@@ -9,6 +9,11 @@ import os
 from PIL import Image
 import hashlib
 # hi
+
+N8N_WEBHOOK_URL = "https://ihisam723.app.n8n.cloud/webhook/a6820b65-76cf-402b-a934-0f836dee6ba0/chat"
+ELEVEN_LABS_API_KEY = "agent_01jvft97waft7rgnwh806ksk7q"
+GEMINI_API_KEY = "AIzaSyBe0r45CcxVSjedLuPEaupGwR4yQunEl5c"
+
 def download_and_display_drive_image(file_id, caption="Generated Image"):
     download_url = f"https://drive.google.com/uc?id={file_id}&export=download"
     image_path = f"/tmp/{file_id}.jpg"
@@ -54,9 +59,7 @@ for i, image_path in enumerate(image_paths):
         st.image(image_path, use_container_width=True, width=250)
 
 # Get API keys and webhook URL from secrets
-webhook_url = st.secrets.get("N8N_WEBHOOK_URL", "")
-ELEVEN_LABS_API_KEY = st.secrets.get("ELEVEN_LABS_API_KEY", "")
-GEMINI_API_KEY = st.secrets.get("GEMINI_API_KEY", "")
+
 
 # Configure Gemini
 if GEMINI_API_KEY:

@@ -58,9 +58,6 @@ for i, image_path in enumerate(image_paths):
     with columns_dynamic[i]:
         st.image(image_path, use_container_width=True, width=250)
 
-# Get API keys and webhook URL from secrets
-
-
 # Configure Gemini
 if GEMINI_API_KEY:
     genai.configure(api_key=GEMINI_API_KEY)
@@ -140,10 +137,10 @@ def detect_automation_task(message):
     return None
 
 def send_to_n8n_webhook(message, task_type):
-    if not webhook_url:
+    if not N8N_WEBHOOK_URL:
         return None, "Webhook URL not configured"
     try:
-        response = requests.post(webhook_url, json={
+        response = requests.post(N8N_WEBHOOK_URL, json={
             "message": message,
             "task_type": task_type,
             "timestamp": datetime.now().isoformat()
@@ -231,7 +228,7 @@ if prompt:
     with st.chat_message("user"):
         st.markdown(prompt)
     automation_task = detect_automation_task(prompt)
-    if automation_task and webhook_url:
+    if automation_task and N8N_WEBHOOK_URL:
         with st.chat_message("assistant"):
             with st.spinner("Processing your automation request..."):
                 webhook_response, error = send_to_n8n_webhook(prompt, automation_task)
